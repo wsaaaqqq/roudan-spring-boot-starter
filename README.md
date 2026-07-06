@@ -26,15 +26,35 @@
 
 ### 1. 添加依赖
 
+除了本 Starter，还需引入 **数据库驱动** 和 **`spring-boot-starter-jdbc`**（Starter 依赖 spring-jdbc 完成数据源与事务管理器注册，该依赖在 Starter 中为 `provided`，需由使用方提供）。
+
+以 Spring Boot 2 + MySQL 为例：
+
 ```xml
+<!-- roudan starter -->
 <dependency>
     <groupId>io.github.wsaaaqqq</groupId>
     <artifactId>roudan-springboot-starter</artifactId>
     <version>0.0.4</version>
 </dependency>
+
+<!-- Spring JDBC（提供数据源自动装配与事务管理器）-->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-jdbc</artifactId>
+</dependency>
+
+<!-- 数据库驱动（按实际数据库选择）-->
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <scope>runtime</scope>
+</dependency>
 ```
 
-> 该 Starter 已传递依赖 `roudan-core`，无需单独引入。
+> - `roudan-core` 已由本 Starter 传递引入，无需单独添加。
+> - 若项目已引入 `spring-boot-starter-data-jpa` 等包含 spring-jdbc 的 Starter，则无需再额外添加 `spring-boot-starter-jdbc`。
+> - 若 classpath 中缺少 spring-jdbc，自动装配将不会生效。
 
 ### 2. 配置数据源
 
